@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "esnext"],
+    "module": "esnext",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "target": "es2015",
+    "noEmit": false,
+    "allowJs": false,
+    "isolatedModules": false,
+    "declaration": true,
+    "sourceMap": true,
+    "jsx": "react",
+    "outDir": "./lib",
+    "rootDir": "./src"
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "./src/__tests__"
+  ]
+}
