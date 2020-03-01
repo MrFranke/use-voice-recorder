@@ -83,3 +83,14 @@ const App: React.FC = () => {
 };
 
 ```
+
+# ATTENTION
+This hook use MediaRecorder API, so you need to check browser compatibility before use:
+https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API
+
+Also different browsers provide different codecs for audio format. Be care about this.
+You can check supported codecs with method [MediaRecorder.isTypeSupported](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/isTypeSupported)
+
+If you want to polyfill MediaRecorder, you can get [Evil Martians Solution](https://github.com/ai/audio-recorder-polyfill). 
+
+
