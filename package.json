@@ -2,6 +2,9 @@
   "name": "use-voice-recorder",
   "version": "0.0.1",
   "description": "React hook for recording media from user device",
+  "keywords": [
+    "react"
+  ],
   "scripts": {
     "start": "npx tsc -w",
     "build": "npx tsc",

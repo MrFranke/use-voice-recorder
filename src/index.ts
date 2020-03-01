@@ -54,8 +54,10 @@ export const useVoiceRecorder = (cb: (result: Blob) => void): ReturnedSig => {
   const stop = () => {
     const recorder = state.recorder;
     dispatch({type: 'stop'});
-    recorder.stop();
-    recorder.removeEventListener('dataavailable', finishRecording);
+    if (recorder) {
+      recorder.stop();
+      recorder.removeEventListener('dataavailable', finishRecording);
+    }
   };
 
   return {

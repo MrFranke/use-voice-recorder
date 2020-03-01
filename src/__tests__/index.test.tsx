@@ -20,7 +20,7 @@ describe("Voice recorder", () => {
   });
 
   it('Hook can stop record', async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useVoiceRecorder(() => {}));
+    const { result } = renderHook(() => useVoiceRecorder(() => {}));
 
     await act(async () => {
       result.current.stop();
@@ -31,7 +31,7 @@ describe("Voice recorder", () => {
   });
 
   it('Hook set correct status when recording', async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useVoiceRecorder(() => {}));
+    const { result } = renderHook(() => useVoiceRecorder(() => {}));
     await act(async () => {
       result.current.start();
     });
@@ -39,7 +39,7 @@ describe("Voice recorder", () => {
   });
 
   it('Hook set correct status when stop recording', async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useVoiceRecorder(() => {}));
+    const { result } = renderHook(() => useVoiceRecorder(() => {}));
 
     act(() => {
       result.current.stop();
