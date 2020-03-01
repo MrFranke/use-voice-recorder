@@ -1,7 +1,7 @@
 React hook for recording users audio. Use MediaRecorder underhood.
 
 # How to use
-__See full example in `/example` folder__
+__See full example in [/example](https://github.com/MrFranke/use-voice-recorder/tree/master/example) folder__
 
 At first you need call hook with callback function. 
 This callback get Blob with recording audio after recording was stop.
