@@ -47,17 +47,14 @@ describe("Voice recorder", () => {
     expect(result.current.isRecording).toBe(false);
   });
 
-  // it('Callback is work', async () => {
-  //   const cb = jest.fn();
-  //   const { result, waitForNextUpdate } = renderHook(() => useVoiceRecorder(cb));
-  //
-  //   await act(async () => {
-  //     result.current.start();
-  //     await waitForNextUpdate();
-  //     result.current.stop();
-  //     await waitForNextUpdate();
-  //     jest.runAllTimers();
-  //   });
-  //   expect(cb).toBeCalled();
-  // })
+  it('Callback is work', async () => {
+    const cb = jest.fn();
+    const { result } = renderHook(() => useVoiceRecorder(cb));
+
+    await act(async () => {
+      await result.current.start();
+      result.current.stop();
+    });
+    expect(cb).toBeCalled();
+  })
 });
