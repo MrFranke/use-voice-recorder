@@ -17,6 +17,7 @@ h1,h2,h3 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100vh;
 }
 
 .hint {
@@ -64,4 +65,15 @@ h1,h2,h3 {
         width: 120px;
         height: 120px;
     }
+}
+
+
+.records {
+    height: 100%;
+    overflow-y: scroll;
+    margin: 20px 0;
+}
+
+.records h1 {
+    text-align: center;
 }

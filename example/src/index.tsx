@@ -12,7 +12,15 @@ export const App: React.FC = () => {
   return (
     <div className={'container'}>
       <div className={'hint'}>
-        Just hold the button and speak.
+        Just hold the mic button and speak.
+      </div>
+      <div className={'records'}>
+        <h1>Records:</h1>
+        {records.map((data, idx) => (
+          <div key={idx}>
+            <audio src={data} controls preload={'metadata'} />
+          </div>
+        ))}
       </div>
       <div>
         <button className={`btn ${isRecording ? 'active' : ''}`}
@@ -22,14 +30,6 @@ export const App: React.FC = () => {
                 onTouchEnd={stop}>🎙</button>
 
         <h3 className={'onair'}>On air: {isRecording ? 'on' : 'off'}</h3>
-      </div>
-      <div>
-        <h1>Records:</h1>
-        {records.map((data, idx) => (
-          <div key={idx}>
-            <audio src={data} controls preload={'metadata'} />
-          </div>
-        ))}
       </div>
     </div>
   )

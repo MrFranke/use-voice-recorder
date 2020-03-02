@@ -28476,15 +28476,9 @@ var App = function App() {
     className: 'container'
   }, React.createElement("div", {
     className: 'hint'
-  }, "Just hold the button and speak."), React.createElement("div", null, React.createElement("button", {
-    className: "btn " + (isRecording ? 'active' : ''),
-    onMouseDown: start,
-    onMouseUp: stop,
-    onTouchStart: start,
-    onTouchEnd: stop
-  }, "\uD83C\uDF99"), React.createElement("h3", {
-    className: 'onair'
-  }, "On air: ", isRecording ? 'on' : 'off')), React.createElement("div", null, React.createElement("h1", null, "Records:"), records.map(function (data, idx) {
+  }, "Just hold the mic button and speak."), React.createElement("div", {
+    className: 'records'
+  }, React.createElement("h1", null, "Records:"), records.map(function (data, idx) {
     return React.createElement("div", {
       key: idx
     }, React.createElement("audio", {
@@ -28492,7 +28486,15 @@ var App = function App() {
       controls: true,
       preload: 'metadata'
     }));
-  })));
+  })), React.createElement("div", null, React.createElement("button", {
+    className: "btn " + (isRecording ? 'active' : ''),
+    onMouseDown: start,
+    onMouseUp: stop,
+    onTouchStart: start,
+    onTouchEnd: stop
+  }, "\uD83C\uDF99"), React.createElement("h3", {
+    className: 'onair'
+  }, "On air: ", isRecording ? 'on' : 'off')));
 };
 
 exports.App = App;
