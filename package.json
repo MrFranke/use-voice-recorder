@@ -15,7 +15,8 @@
     "README.md",
     "lib"
   ],
-  "author": "",
+  "repository": "https://github.com/MrFranke/use-voice-recorder",
+  "author": "Mikhail Moskalev",
   "license": "ISC",
   "typings": "lib/index.d.ts",
   "types": "lib/index.d.ts",
