@@ -45,33 +45,22 @@ const Player: React.FC<{
 Full example:
 ```typescript jsx
 import * as React from "react";
-import { useState } from "react";
 import { useVoiceRecorder } from "use-voice-recorder";
+import { useState } from "react";
 
-type Props = {
-  onRecorded: (data: Blob) => void
-}
-
-const Recorder: React.FC<Props> = ({onRecorded}) => {
-  const {isRecording, stop, start} = useVoiceRecorder(onRecorded);
+export const App: React.FC = () => {
+  const [records, updateRecords] = useState([]);
+  const {isRecording, stop, start} = useVoiceRecorder((data) => {
+    updateRecords([...records, window.URL.createObjectURL(data)]);
+  });
   return (
     <div>
+      <h1>Voices:</h1>
       <div>
-        On air: {isRecording ? 'on' : 'off'}
+        <h3>On air: {isRecording ? 'on' : 'off'}</h3>
+        <button onClick={start}>Start</button>
+        <button onClick={stop}>Stop</button>
       </div>
-      <button onClick={start}>Start</button>
-      <button onClick={stop}>Stop</button>
-    </div>
-  )
-};
-
-const App: React.FC = () => {
-  const [records, setRecords] = useState([]);
-  return (
-    <div>
-      <h1>Voice recorder</h1>
-      <Recorder onRecorded={(data) => setRecords([...records, window.URL.createObjectURL(data)])} />
-      
       <div>
         <h1>Records:</h1>
         {records.map((data, idx) => (
@@ -83,7 +72,6 @@ const App: React.FC = () => {
     </div>
   )
 };
-
 ```
 
 # ATTENTION
