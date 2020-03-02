@@ -1,10 +1,12 @@
-React hook for recording users audio. Use MediaRecorder underhood.
+React hook for recording users' audio. 
+
+This project is using MediaRecorder as its underhood.
 
 # How to use
 __See full example in [/example](https://github.com/MrFranke/use-voice-recorder/tree/master/example) folder__
 
-At first you need call hook with callback function. 
-This callback get Blob with recording audio after recording was stop.
+First you need to call hook with a callback function.
+This callback gets Blob with a recorded audio after recording was stopped.
 
 Hook provide 3 methods:
 - isRecording – status of recording user media
@@ -28,7 +30,7 @@ const Recorder: React.FC<{
 };
 ```
 
-Audio was storage in Blob format, so if you want to play record you may create link with 
+Audio is stored as Blob format, so if you want to play a record you may create link with 
 `window.URL.createObjectURL(blobAudio)`.
 
 ```typescript jsx
@@ -85,12 +87,12 @@ const App: React.FC = () => {
 ```
 
 # ATTENTION
-This hook use MediaRecorder API, so you need to check browser compatibility before use:
+This hook is using MediaRecorder API, so you need to check the browser compatibility before useing it:
 https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API
 
-Also different browsers provide different codecs for audio format. Be care about this.
-You can check supported codecs with method [MediaRecorder.isTypeSupported](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/isTypeSupported)
+Also, there are different browsers that provide different codecs and audio formats. Be careful about this.
+You can check supported codecs with this method [MediaRecorder.isTypeSupported](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/isTypeSupported)
 
-If you want to polyfill MediaRecorder, you can get [Evil Martians Solution](https://github.com/ai/audio-recorder-polyfill). 
+If you want to polyfill MediaRecorder, you can use [Evil Martians Solution](https://github.com/ai/audio-recorder-polyfill). 
 
 
