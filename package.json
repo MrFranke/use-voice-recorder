@@ -1,6 +1,6 @@
 {
   "name": "use-voice-recorder",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "React hook for recording media from user device",
   "keywords": [
     "react",
