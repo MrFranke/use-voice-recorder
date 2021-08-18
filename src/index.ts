@@ -5,23 +5,27 @@ type ReturnedSig = {
   start: () => Promise<void>;
   stop: () => void;
   isRecording: boolean;
+  error: Error | null;
 };
 
 type State = {
   isRecording: boolean,
   recorder: MediaRecorder | null,
-  data: Blob | null
+  data: Blob | null,
+  error: Error | null
 }
 
 type Actions =
   | {type: 'start'}
   | {type: 'startRecording', payload: {recorder: MediaRecorder}}
-  | {type: 'stop'};
+  | {type: 'stop'}
+  | { type: "hasError"; payload: { error: Error | null } };
 
 const initState: State = {
   isRecording: false,
   recorder: null,
-  data: null
+  data: null,
+  error: null
 };
 
 const reducer = (state: State, action: Actions): State => {
@@ -32,6 +36,8 @@ const reducer = (state: State, action: Actions): State => {
       return {...state, isRecording: false};
     case 'startRecording':
       return {...state, isRecording: true, recorder: action.payload.recorder};
+    case "hasError":
+      return { ...state, isRecording: false, error: action.payload.error };
     default:
       return state;
   }
@@ -43,20 +49,30 @@ export const useVoiceRecorder = (cb: (result: Blob) => void): ReturnedSig => {
   const finishRecording = ({data}: {data: Blob}) => { cb(data); };
 
   const start = async () => {
-    dispatch({type: 'start'});
-    const stream = await navigator.mediaDevices.getUserMedia({audio: true});
-    const recorder = new MediaRecorder(stream);
-    dispatch({type: 'startRecording', payload: {recorder}});
-    recorder.start();
-    recorder.addEventListener('dataavailable', finishRecording);
+    try{
+      if (state.isRecording) return;
+      dispatch({type: 'start'});
+      const stream = await navigator.mediaDevices.getUserMedia({audio: true});
+      const recorder = new MediaRecorder(stream);
+      dispatch({type: 'startRecording', payload: {recorder}});
+      recorder.start();
+      recorder.addEventListener('dataavailable', finishRecording);
+      if (state.error) dispatch({ type: "hasError", payload: { error: null } });
+    }catch(err){
+      dispatch({ type: "hasError", payload: { error: err } });
+    }
   };
 
   const stop = () => {
-    const recorder = state.recorder;
-    dispatch({type: 'stop'});
-    if (recorder) {
-      recorder.stop();
-      recorder.removeEventListener('dataavailable', finishRecording);
+    try{
+      const recorder = state.recorder;
+      dispatch({type: 'stop'});
+      if (recorder) {
+        if (recorder.state !== "inactive") recorder.stop();
+        recorder.removeEventListener('dataavailable', finishRecording);
+      }
+    }catch(err){
+      dispatch({ type: "hasError", payload: { error: err } });
     }
   };
 
@@ -65,5 +81,6 @@ export const useVoiceRecorder = (cb: (result: Blob) => void): ReturnedSig => {
     stop,
     recorder: state.recorder,
     isRecording: state.isRecording,
+    error: state.error,
   };
 };
