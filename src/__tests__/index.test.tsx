@@ -1,5 +1,14 @@
 import { renderHook, act } from '@testing-library/react-hooks'
 import { useVoiceRecorder } from "../index";
+let state = 'innactive';
+const mockMediaRecorder = {
+  start: jest.fn(() => state = 'active'),
+  ondataavailable: jest.fn(),
+  onerror: jest.fn(),
+  state: state,
+  addEventListener: () => {},
+  stop: jest.fn(() => state = 'inactive'),
+};
 
 jest.useFakeTimers();
 
@@ -56,5 +65,21 @@ describe("Voice recorder", () => {
       result.current.stop();
     });
     expect(cb).toBeCalled();
+  })
+
+  it('Can\'t start twise', async () => {
+    window.MediaRecorder = (jest.fn() as any).mockImplementation(
+      () => mockMediaRecorder,
+    );
+
+    const { result, waitForNextUpdate } = renderHook(() => useVoiceRecorder(() => {}));
+
+    await act(async () => {
+      result.current.start();
+      await waitForNextUpdate();
+      result.current.start();
+    });
+
+    expect(mockMediaRecorder.start.mock.calls.length).toBe(1);
   })
 });
