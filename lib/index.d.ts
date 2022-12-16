@@ -1,10 +1,8 @@
 /// <reference types="dom-mediacapture-record" />
-declare type ReturnedSig = {
-    recorder: MediaRecorder | null;
+export declare const useRecorder: (cb: (result: Blob) => void) => {
     start: () => Promise<void>;
     stop: () => void;
+    recorder: MediaRecorder;
     isRecording: boolean;
-    error: Error | null;
+    error: Error;
 };
-export declare const useVoiceRecorder: (cb: (result: Blob) => void) => ReturnedSig;
-export {};
